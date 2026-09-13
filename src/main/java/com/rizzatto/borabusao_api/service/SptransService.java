@@ -3,6 +3,7 @@ package com.rizzatto.borabusao_api.service;
 import com.rizzatto.borabusao_api.dto.LinhaDTO;
 import com.rizzatto.borabusao_api.dto.SptransItinerarios.DetalhesLinhaItinerarios;
 import com.rizzatto.borabusao_api.dto.SptransOlhoVivo.LinhaSptrans;
+import com.rizzatto.borabusao_api.dto.SptransOlhoVivo.ParadaSptrans;
 import com.rizzatto.borabusao_api.dto.SptransOlhoVivo.PosicaoSptrans;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -86,5 +87,22 @@ public class SptransService {
                         .build())
                 .retrieve()
                 .body(PosicaoSptrans.class);
+    }
+
+    public List<ParadaSptrans> buscarParadasPorLinha(Integer codigoLinha) {
+        autenticar();
+
+        ParadaSptrans[] resposta = restClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/Parada/BuscarParadasPorLinha")
+                        .queryParam("codigoLinha", codigoLinha)
+                        .build())
+                .retrieve()
+                .body(ParadaSptrans[].class);
+
+        if(resposta != null && resposta.length > 0) {
+            return Arrays.asList(resposta);
+        }
+        return null;
     }
 }

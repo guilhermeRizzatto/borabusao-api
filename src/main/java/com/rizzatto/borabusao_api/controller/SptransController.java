@@ -3,6 +3,7 @@ package com.rizzatto.borabusao_api.controller;
 import com.rizzatto.borabusao_api.dto.LinhaDTO;
 import com.rizzatto.borabusao_api.dto.SptransItinerarios.DetalhesLinhaItinerarios;
 import com.rizzatto.borabusao_api.dto.SptransOlhoVivo.LinhaSptrans;
+import com.rizzatto.borabusao_api.dto.SptransOlhoVivo.ParadaSptrans;
 import com.rizzatto.borabusao_api.dto.SptransOlhoVivo.PosicaoSptrans;
 import com.rizzatto.borabusao_api.service.ItinerariosService;
 import com.rizzatto.borabusao_api.service.SptransService;
@@ -34,6 +35,12 @@ public class SptransController {
     public PosicaoSptrans buscarPosicoes(
             @PathVariable Integer codigoLinha) {
         return sptransService.buscarPosicoes(codigoLinha);
+    }
+
+    @GetMapping("/linhas/{codigoLinha}/paradas")
+    public List<ParadaSptrans> buscarParadas(
+            @PathVariable Integer codigoLinha) {
+        return sptransService.buscarParadasPorLinha(codigoLinha);
     }
 
 }
